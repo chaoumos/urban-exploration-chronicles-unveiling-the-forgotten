@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "Urban Exploration Chronicles";
+const blogName = "urban-exploration-chronicles";
+const blogTheme = "Unveiling the Forgotten";
+const siteDescription = "The home page for Urban Exploration Chronicles.";
+---
+
+<BaseLayout title={pageTitle} description={siteDescription}>
+  <div class="hero bg-gray-900 text-white py-20">
+    <div class="container mx-auto text-center">
+      <h1 class="text-5xl font-bold mb-6">Welcome to {blogName}!</h1>
+      <p class="text-xl mb-8">{blogTheme}: A journey into the forgotten corners of our world.</p>
+      <a href="/blog" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full">Explore the Chronicles</a>
+    </div>
+  </div>
+
+  <div class="container mx-auto py-12">
+    <section class="mb-12">
+      <h2 class="text-3xl font-semibold mb-4">About Us</h2>
+      <p class="text-gray-700">We are a community of urban explorers and history enthusiasts, dedicated to documenting and preserving the stories of abandoned places around the globe. Join us as we delve into the past and uncover the hidden narratives etched into the walls of forgotten structures.</p>
+    </section>
+
+    <section>
+      <h2 class="text-3xl font-semibold mb-4">Featured Locations</h2>
+      <p class="text-gray-700">Discover some of our most captivating explorations. From crumbling factories to decaying mansions, each location has a unique story to tell.</p>
+      {/* Add featured blog post previews or image gallery here */}
+    </section>
+  </div>
+</BaseLayout>

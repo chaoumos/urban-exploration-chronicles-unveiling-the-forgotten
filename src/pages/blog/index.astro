@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const pageTitle = "Urban Exploration Chronicles: Unveiling the Forgotten - Blog";
+const pageDescription = "Explore detailed reports and photos of abandoned locations worldwide.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold mb-4">Blog</h1>
+    <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {sortedPosts.map((post) => (
+        <li class="bg-gray-100 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+          <a href={`/blog/${post.slug}/`} class="block">
+            <h2 class="text-xl font-semibold mb-2">{post.data.title}</h2>
+            <p class="text-gray-600 text-sm mb-2">
+              Published: {post.data.pubDate.toLocaleDateString()}
+            </p>
+            <p class="text-gray-700">{post.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>

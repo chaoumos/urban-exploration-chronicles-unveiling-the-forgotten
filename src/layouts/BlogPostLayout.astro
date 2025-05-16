@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { format } from 'date-fns';
+
+interface Props {
+	frontmatter: {
+		title: string;
+		description: string;
+		pubDate: string;
+		author: string;
+		image?: string;
+	};
+}
+
+const { frontmatter } = Astro.props;
+const formattedDate = format(new Date(frontmatter.pubDate), 'MMMM dd, yyyy');
+const siteTitle = "Urban Exploration Chronicles: Unveiling the Forgotten";
+const blogName = "urban-exploration-chronicles";
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+	<div class="container mx-auto px-4 py-8">
+		<article class="prose lg:prose-xl max-w-none">
+			<header class="mb-8">
+				<h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">{frontmatter.title}</h1>
+				<div class="text-gray-500 dark:text-gray-400">
+					Published: {formattedDate} by {frontmatter.author}
+				</div>
+				{frontmatter.image && (
+					<img src={frontmatter.image} alt={frontmatter.title} class="w-full h-auto rounded-md my-4" />
+				)}
+			</header>
+			<slot />
+		</article>
+	</div>
+</BaseLayout>
